@@ -67,10 +67,9 @@ function is_https($url) {
 
 
 function get_token($url) {
-	global $CONFIG;
 	
-	if ($CONFIG->image_proxy_secret) {
-		$site_secret = $CONFIG->image_proxy_secret;
+	if (elgg_get_config('image_proxy_secret')) {
+		$site_secret = elgg_get_config('image_proxy_secret');
 	}
 	else {
 		$site_secret = get_site_secret();
