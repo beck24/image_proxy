@@ -2,8 +2,6 @@
 
 namespace image_proxy;
 
-define('PLUGIN_ID', 'image_proxy');
-
 elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
 
 function init() {
@@ -32,7 +30,7 @@ function view_hook($h, $t, $r, $p) {
 				// replace this url
 				$url = urlencode($extracted_image[1][$key]);
 				$token = get_token($extracted_image[1][$key]);
-				$new_url = elgg_normalize_url('mod/' . PLUGIN_ID . '/image.php?url=' . $url . '&token=' . $token);
+				$new_url = elgg_normalize_url('mod/image_proxy/image.php?url=' . $url . '&token=' . $token);
 				
 				$replacement_image = str_replace($extracted_image[1][$key], $new_url, $i);
 				$r = str_replace($i, $replacement_image, $r);
