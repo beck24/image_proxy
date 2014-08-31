@@ -15,8 +15,10 @@ elgg content.  This uses the elgg site secret by default.
 The elgg engine is not booted during the proxy forwarding process to keep things as lean as
 possible.  A single database query is used to retrieve the site secret.
 
-A custom secret solely for image proxying can optionally be set in settings.php
+This can optionally be bypassed by adding a new secret string directly to the settings.php file
 
 ```
 $CONFIG->image_proxy_secret = 'my secret string';
 ```
+
+Adding a custom image_proxy_secret to the config will eliminate all database interaction for the proxy
