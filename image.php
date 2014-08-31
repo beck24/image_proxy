@@ -8,6 +8,8 @@
 
 namespace image_proxy;
 
+error_reporting(0); // we don't want notices etc to break the image data passthrough
+
 // Get DB settings
 require_once(dirname(dirname(dirname(__FILE__))) . '/engine/settings.php');
 
