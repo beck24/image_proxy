@@ -3,8 +3,8 @@
     <name>Image Proxy</name>
     <author>Matt Beckett</author>
     <version>1.0</version>
-    <description>Caches and serves non-https external images over https</description>
-    <website>http://www.elgg.org/</website>
+    <description>Serves non-https external images over https</description>
+    <website>http://mattbeckett.me/</website>
     <copyright>See COPYRIGHT.txt</copyright>
     <license>GNU General Public License version 2</license>
     <requires>
