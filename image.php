@@ -1,11 +1,5 @@
 <?php
 
-/**
- * image proxy
- * 
- * 
- */
-
 namespace image_proxy;
 
 error_reporting(0); // we don't want notices etc to break the image data passthrough
@@ -18,7 +12,9 @@ global $CONFIG;
 $url = urldecode($_GET['url']);
 $token = $_GET['token'];
 
-if (!$CONFIG->image_proxy_secret) {
+if ($CONFIG->image_proxy_secret) {
+	$site_secret = $CONFIG->image_proxy_secret;
+} else {
 	$mysql_dblink = @mysql_connect($CONFIG->dbhost, $CONFIG->dbuser, $CONFIG->dbpass, true);
 	if ($mysql_dblink) {
 		if (@mysql_select_db($CONFIG->dbname, $mysql_dblink)) {
@@ -36,9 +32,6 @@ if (!$CONFIG->image_proxy_secret) {
 			@mysql_close($mysql_dblink);
 		}
 	}
-}
-else {
-	$site_secret = $CONFIG->image_proxy_secret;
 }
 
 if (!$site_secret) {
@@ -69,8 +62,8 @@ if ($headers === false) {
 	exit;
 }
 
-foreach (explode("\r\n", $headers) as $hdr) {
-	header($hdr);
+foreach (explode("\r\n", $headers) as $header) {
+	header($header);
 }
 
 readfile($url);

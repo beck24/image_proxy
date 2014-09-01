@@ -5,6 +5,7 @@ namespace image_proxy;
 elgg_register_event_handler('init', 'system', __NAMESPACE__ . '\\init');
 
 function init() {
+	//@TODO - can we do this without parsing all views?
 	elgg_register_plugin_hook_handler('view', 'all', __NAMESPACE__ . '\\view_hook');
 }
 
