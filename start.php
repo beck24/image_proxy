@@ -30,11 +30,13 @@ function view_hook($h, $t, $r, $p) {
 			if (!is_https($extracted_image[1][$key])) {
 				// replace this url
 				$url = urlencode($extracted_image[1][$key]);
-				$token = get_token($extracted_image[1][$key]);
-				$new_url = elgg_normalize_url('mod/image_proxy/image.php?url=' . $url . '&token=' . $token);
-				
-				$replacement_image = str_replace($extracted_image[1][$key], $new_url, $i);
-				$r = str_replace($i, $replacement_image, $r);
+				if (strpos($url, 'http') === 0) {
+					$token = get_token($extracted_image[1][$key]);
+					$new_url = elgg_normalize_url('mod/image_proxy/image.php?url=' . $url . '&token=' . $token);
+					
+					$replacement_image = str_replace($extracted_image[1][$key], $new_url, $i);
+					$r = str_replace($i, $replacement_image, $r);
+				}
 			}
 		}
 	}
