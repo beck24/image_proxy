@@ -27,6 +27,15 @@ function view_hook($h, $t, $r, $p) {
 				continue; // already one of our links
 			}
 			
+			// check if this is our url being requested over http, and rewrite to https
+			$http_url = str_replace('https://', 'http://', elgg_get_site_url());
+			if (strpos($extracted_image[1][$key], $http_url)) {
+				$https_image = str_replace('http://', 'https://', $extracted_image[1][$key]);
+				$replacement_image = str_replace($extracted_image[1][$key], $https_image, $i);
+				$r = str_replace($i, $replacement_image, $r);
+				continue;
+			}
+			
 			if (!is_https($extracted_image[1][$key])) {
 				// replace this url
 				$url = urlencode($extracted_image[1][$key]);
