@@ -1,0 +1,9 @@
+== Version History ==
+
+x.x (mm/dd/yyyy)
+
+1.1 (09/08/2015):
+ - add rewrite for images served over http on the same domain (sites upgraded to https)
+
+1.0
+ - initial release

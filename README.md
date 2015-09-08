@@ -9,6 +9,8 @@ url to mod/image_proxy/image.php
 This file forwards the headers and image content from the http source through to the browser
 using the elgg site ssl thereby removing unsecure content warnings from browsers.
 
+Non-https images originating from the elgg host over http are rewritten to serve from https
+
 
 The proxy has an encryption element to ensure that urls passed through are originating as
 elgg content.  This uses the elgg site secret by default.

@@ -19,6 +19,8 @@ function init() {
  * @return type
  */
 function view_hook($h, $t, $r, $p) {
+	
+	$http_url = str_replace('https://', 'http://', elgg_get_site_url());
 
 	if (preg_match_all( '/<img[^>]+src\s*=\s*["\']?([^"\' ]+)[^>]*>/', $r, $extracted_image)) {
 		foreach ($extracted_image[0] as $key => $i) {
@@ -26,10 +28,9 @@ function view_hook($h, $t, $r, $p) {
 			if (strpos($extracted_image[1][$key], elgg_get_site_url()) !== false) {
 				continue; // already one of our links
 			}
-			
+
 			// check if this is our url being requested over http, and rewrite to https
-			$http_url = str_replace('https://', 'http://', elgg_get_site_url());
-			if (strpos($extracted_image[1][$key], $http_url)) {
+			if (strpos($extracted_image[1][$key], $http_url) === 0) {
 				$https_image = str_replace('http://', 'https://', $extracted_image[1][$key]);
 				$replacement_image = str_replace($extracted_image[1][$key], $https_image, $i);
 				$r = str_replace($i, $replacement_image, $r);
