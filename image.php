@@ -4,8 +4,20 @@ namespace image_proxy;
 
 error_reporting(0); // we don't want notices etc to break the image data passthrough
 
-// Get DB settings
-require_once(dirname(dirname(dirname(__FILE__))) . '/engine/settings.php');
+// Get DB settings pre 2.0
+$settings = dirname(dirname(dirname(__FILE__))) . '/engine/settings.php';
+if (!file_exists($settings)) {
+	// try from root location
+	$settings = dirname(dirname(dirname(__FILE__))) . '/settings.php';
+}
+
+if (!file_exists($settings)) {
+	header('Content-Type: image/png');
+	readfile('graphics/proxyfail.png');
+	exit;
+}
+
+require_once($settings);
 
 global $CONFIG;
 
@@ -35,14 +47,14 @@ if ($CONFIG->image_proxy_secret) {
 }
 
 if (!$site_secret) {
-	error_log('Cannot find site secret');
-	header('HTTP/1.0 404 Not Found');
+	header('Content-Type: image/png');
+	readfile('graphics/proxyfail.png');
 	exit;
 }
 
-if ($token !== md5($site_secret . $url)) {
-	error_log('Invalid proxy token');
-	header('HTTP/1.0 404 Not Found');
+if ($token !== sha1($site_secret . $url)) {
+	header('Content-Type: image/png');
+	readfile('graphics/proxyfail.png');
 	exit;
 }
 
@@ -57,8 +69,8 @@ $headers = curl_exec($ch);
 
 if ($headers === false) {
 	// we couldn't get the headers from the remote url
-	error_log('Could not retrieve remote headers');
-	header('HTTP/1.0 404 Not Found');
+	header('Content-Type: image/png');
+	readfile('graphics/proxyfail.png');
 	exit;
 }
 

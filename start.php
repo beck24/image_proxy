@@ -87,5 +87,5 @@ function get_token($url) {
 	else {
 		$site_secret = get_site_secret();
 	}
-	return md5($site_secret . $url);
+	return sha1($site_secret . $url);
 }
