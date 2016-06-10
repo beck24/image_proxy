@@ -9,6 +9,11 @@ $settings = dirname(dirname(dirname(__FILE__))) . '/engine/settings.php';
 if (!file_exists($settings)) {
 	// try from root location
 	$settings = dirname(dirname(dirname(__FILE__))) . '/settings.php';
+	
+	if (!file_exists($settings)) {
+	  // one last spot we can try
+		$settings = dirname(dirname(dirname(__FILE__))) . '/elgg-config/settings.php';
+	}
 }
 
 if (!file_exists($settings)) {
@@ -74,7 +79,28 @@ if ($headers === false) {
 	exit;
 }
 
+// we must find a content type of image
+$found_img = false;
+$forwarded_headers = [];
 foreach (explode("\r\n", $headers) as $header) {
+	if (strpos($header, "Content-Type: image/") === 0) {
+		$found_img = true;
+		$forwarded_headers[] = $header;
+	}
+	
+	if (strpos($header, "Content-Length: ") === 0) {
+		$forwarded_headers[] = $header;
+	}
+}
+
+
+if (!$found_img) {
+	header('Content-Type: image/png');
+	readfile('graphics/proxyfail.png');
+	exit;
+}
+
+foreach ($forwarded_headers as $header) {
 	header($header);
 }
 

@@ -2,6 +2,9 @@
 
 x.x (mm/dd/yyyy)
 
+1.2.1 (06/09/2016):
+ - limit forwarded headers to content type/length
+
 1.2.0 (09/23/2015):
  - upgrade for 2.0 settings
  - add default fallback image
