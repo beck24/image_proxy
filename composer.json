@@ -4,7 +4,7 @@
     "description": "Proxy scheme for http images embedded in https elgg sites",
     "homepage": "https://github.com/beck24/image_proxy",
     "keywords": ["elgg", "plugin", "image", "image proxy"],
-    "license": "GPL-2.0",
+    "license": "GPL-2.0-only",
     "authors": [
         {
             "name": "Matt Beckett"
