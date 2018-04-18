@@ -57,30 +57,6 @@ function view_hook($h, $t, $html, $p) {
 	return $html;
 }
 
-/**
- * detect if the current page is using https
- * 
- * @staticvar type $is_https
- * @return type
- */
-function is_https($url) {
-	static $is_https;
-	
-	if (!is_array($is_https)) {
-		$is_https = array();
-	}
-	
-	if (isset($is_https[$url])) {
-		return $is_https[$url];
-	}
-	
-	$parts = parse_url($url);
-	
-	$is_https[$url] = strtolower($parts['scheme']) === 'https';
-	
-	return $is_https[$url];
-}
-
 
 function get_token($url) {
 	$secret = get_secret();
